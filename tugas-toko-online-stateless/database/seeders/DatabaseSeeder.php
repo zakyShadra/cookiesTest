@@ -30,6 +30,32 @@ class DatabaseSeeder extends Seeder
             'alamat' => 'Jl. Dago No. 5, Bandung',
         ]);
 
+        // Role staff dan admin tidak lewat registrasi publik (tidak ada formulirnya).
+        // Role di-set lewat assignment properti + save, bukan mass assignment, mengikuti BR-03.
+        $staff = User::create([
+            'id_user' => 'USR003',
+            'nama_lengkap' => 'Agus Pratama',
+            'email' => 'agus@example.com',
+            'username' => 'agus',
+            'password' => 'agus123',
+            'no_hp' => '081233344455',
+            'alamat' => 'Jl. Sukajadi No. 8, Bandung',
+        ]);
+        $staff->role = 'staff';
+        $staff->save();
+
+        $admin = User::create([
+            'id_user' => 'USR004',
+            'nama_lengkap' => 'Rina Kusuma',
+            'email' => 'rina@example.com',
+            'username' => 'rina',
+            'password' => 'rina123',
+            'no_hp' => '081255566677',
+            'alamat' => 'Jl. Setiabudi No. 1, Bandung',
+        ]);
+        $admin->role = 'admin';
+        $admin->save();
+
         $barang = [
             ['BRG001', 'Buku Tulis', 'Buku tulis 38 lembar', 5000, 50, 'buku-tulis.svg'],
             ['BRG002', 'Pulpen', 'Pulpen tinta hitam', 3000, 100, 'pulpen.svg'],
