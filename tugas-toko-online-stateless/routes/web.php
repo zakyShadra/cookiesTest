@@ -22,9 +22,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::get('/keranjang', [KeranjangController::class, 'index']);
-    Route::post('/keranjang/tambah/{product}', [KeranjangController::class, 'tambah']);
-    Route::post('/keranjang/ubah/{product}/{aksi}', [KeranjangController::class, 'ubah'])->whereIn('aksi', ['plus', 'minus']);
-    Route::post('/keranjang/hapus/{product}', [KeranjangController::class, 'hapus']);
+
+    Route::middleware('can:use-cart')->group(function () {
+        Route::post('/keranjang/tambah/{product}', [KeranjangController::class, 'tambah']);
+        Route::post('/keranjang/ubah/{product}/{aksi}', [KeranjangController::class, 'ubah'])->whereIn('aksi', ['plus', 'minus']);
+        Route::post('/keranjang/hapus/{product}', [KeranjangController::class, 'hapus']);
+    });
 
     Route::post('/checkout', [PesananController::class, 'checkout']);
     Route::get('/pesanan', [PesananController::class, 'index']);
