@@ -27,6 +27,9 @@
                 <a href="/keranjang">Keranjang ({{ array_sum(session('keranjang', [])) }})</a>
                 <a href="/pesanan">Pesanan</a>
             @endauth
+            @can('manage-roles')
+                <a href="/admin/users">Kelola Role</a>
+            @endcan
         </span>
         <span>
             @auth
